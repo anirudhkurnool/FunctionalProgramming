@@ -1,0 +1,106 @@
+Two types of programming languages 
+(1)Imperative (how to do)  Ex. -> C, C++, Java ..etc
+(2)Declarative (what to do) - divided into two more types 
+	(i)Functional Ex. -> Haskell, Lisp, OCaml, F#, Scheme
+	(ii)Logic
+
+programs can have side effects i.e length.java file we calculated the length of the list but as a side effect we deleted the list. Ofcourse better version of it can be written but to write such thing the programmer has to keep the system in mind when writing such programs to not have any unintended side effects
+
+there are some control structures in the java program like while and if and they can influence the control of the program hence it will lead to branching and goto.
+
+Coding the above thing in declarative manner we have to code
+(1)If the list is empty then the length is 0
+(2)If list - l is not empty then the list without its first element is l1 then length of the list is 1 + length of l1
+
+In haskell 15 : [70, 36] => [15, 70, 36]
+
+: is executed right to left so 
+15 : 70 : 36 : []  => 15 : 70 : [30] => 15 : [70, 36] => [15, 70, 36]
+
+so every list in haskell can be written in this x : xs when x is the first element and where xs is the remaining elements
+
+In Haskell 
+len :: [Int] -> Int 
+len :: [] = 0
+len (x : xs) = 1 + len xs
+
+
+len [15, 70, 36] => len (15 : [70, 36]) => 1 + len [70, 36] => 1 + len (70 : [36]) => 2 + len([36])
+=> 2 + len(36 : []) => 3 + len([]) => 3 + 0 => 3
+
+In Functional Programming(FP) there are no loops to do something repeatedly we have to use recursion
+In FP there are no side effects the underlying state of the memory has not changed
+Application of a function to the same arguments yields smae results. This is called as referential transperency
+
+Generic
+len :: [data] -> Int (polymorphic type system)
+
+generics were first developed in functional programming and then adapted in imperative programming languges
+
+Haskell has automatic memory management(garbage collector)
+
+Functions are like any other type i.e. you can pass functions as arguments
+
+Functions are first class data objects like Int, Float, ..etc. That is functions can be passed as arguments or functions can be returned.
+
+Haskell does lazy evaluation (not all FP languages do this). Here the evaluation starts at the outermost point of the expression. So only the parts required for the result are evaluated.
+
+Academinc Exams == Compression of Human Potential With Obvious data losses ??? 
+
+ghc = ghc interactive mode
+
+============================= Haskell Syntax =============================
+4 main constructs in Haskell
+(1)Declaration
+(2)Expressions
+(3)Patterns
+(4)Types 
+
+Haskell = sequence of declarations;
+Declaration = description of functions;
+
+Two types of declarations (1)Type (2)Function
+
+CFG : decl -> typedecl | funcdecl
+
+Comments 
+{- multi line 
+		comment -}
+
+--single line comment
+
+Type Declaration 
+square_of_a_number :: Int -> Int (takes a Int(domain type) and return a Int(range type))( 3 ^ 3 = 9)
+CFG : typedecl -> var1, var2 , . . .  , varn type  (n >= 1)
+Types in haskell = Int, Int -> Int(functions from int to int), bool, double, char, [Int] (type of list with integer elements)
+[Int] -> Int
+[[Int]] -> list of list of integers
+[Int -> Int] -> list functions from Int to Int
+Haskell has automatic type inference
+good style : write type declarations in code 
+all variable names should start with a lower case letter ?
+
+Function Declaration
+describe what the function does
+square x = x * x
+CFG : funcdecl -> funlhs rhs
+      funlhs   -> var pat(variable pattern(form of expected argument))
+      rhs      -> exp(expression)
+funlhs = sqaure x
+rhs    = x * x
+
+arithmetic ops => +, -, /, * 
+comparison ops => == , !=, >=, <=, < , >
+boolean    ops => not , &&, || 
+
+Execution of Functional Program
+square :: Int -> Int 
+square x = x * x 
+evaluation happens by term rewriting 
+Step - 1 =>  Find a subexpression of the expression(rhs) of we want to evaluate such that it matches with the lhs. Here matches means instantiate the variable in the defining equation.
+Step - 2 =>  Replace the sub expression by the corresponding instantiated rhs.
+square (12 -1) - we have to options evluate - or square. We evaluate - 
+square 11 - now search for defintions where this matched with some lhs. It matches with square x = x * x
+11 * 11  - so replace this by the rhs 
+121
+
